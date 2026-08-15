@@ -287,16 +287,17 @@ difference）として扱います。
 
 ## 10. 出力ファイル
 
-指定した出力フォルダに以下を生成します。
+指定した出力フォルダに以下のファイルが生成されます：
 
-  ファイル                      内容
-  ----------------------------- -------------------------
-  `band_levels.csv`             10帯域の補正後左右差
-  `diff_by_band.png`            Band解析グラフ
-  `welch_spectra_normal.png`    正接続のWelchスペクトル
-  `welch_spectra_reverse.png`   逆接続のWelchスペクトル
-  `welch_diff.png`              補正後Welch差分グラフ
-  `summary.txt`                 解析結果と簡易判定
+| ファイル | 内容 |
+|---|---|
+| `band_levels.csv` | 10帯域の左右差（補正後） |
+| `diff_by_band.png` | Band解析グラフ |
+| `welch_spectra_normal.png` | 正接続録音のWelchスペクトル |
+| `welch_spectra_reverse.png` | 逆接続録音のWelchスペクトル |
+| `welch_diff.png` | 補正後のWelch差分グラフ |
+| `summary.txt` | 解析結果および簡易自動判定 |
+
 指定した出力フォルダに同名の結果ファイルが既に存在する場合、それらのファイルは確認なしで上書きされます。
 
 ## 11. ΔDiff と max(diff_welch)
