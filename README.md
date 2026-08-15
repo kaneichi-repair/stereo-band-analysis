@@ -331,25 +331,15 @@ Welch-difference graph and `Max Diff Freq` in the Summary are omitted.
 
 The following files are generated in the specified output folder:
 
-  -----------------------------------------------------------------------
-  File                                Description
-  ----------------------------------- -----------------------------------
-  `band_levels.csv`                   Corrected L/R difference for the 10
-                                      bands
+| File | Description |
+|---|---|
+| `band_levels.csv` | Corrected L/R difference for the 10 bands |
+| `diff_by_band.png` | Band-analysis graph |
+| `welch_spectra_normal.png` | Welch spectra for the normal recording |
+| `welch_spectra_reverse.png` | Welch spectra for the reversed recording |
+| `welch_diff.png` | Corrected Welch-difference graph |
+| `summary.txt` | Analysis results and simple automatic judgement |
 
-  `diff_by_band.png`                  Band-analysis graph
-
-  `welch_spectra_normal.png`          Welch spectra for the normal
-                                      recording
-
-  `welch_spectra_reverse.png`         Welch spectra for the reversed
-                                      recording
-
-  `welch_diff.png`                    Corrected Welch-difference graph
-
-  `summary.txt`                       Analysis results and simple
-                                      automatic judgement
-  -----------------------------------------------------------------------
 If files with the same names already exist in the specified output folder, they will be overwritten without confirmation.
 
 ## 11. ΔDiff and max(diff_welch)
