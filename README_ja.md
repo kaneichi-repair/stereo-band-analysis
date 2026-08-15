@@ -297,6 +297,7 @@ difference）として扱います。
   `welch_spectra_reverse.png`   逆接続のWelchスペクトル
   `welch_diff.png`              補正後Welch差分グラフ
   `summary.txt`                 解析結果と簡易判定
+指定した出力フォルダに同名の結果ファイルが既に存在する場合、それらのファイルは確認なしで上書きされます。
 
 ## 11. ΔDiff と max(diff_welch)
 

@@ -350,6 +350,7 @@ The following files are generated in the specified output folder:
   `summary.txt`                       Analysis results and simple
                                       automatic judgement
   -----------------------------------------------------------------------
+If files with the same names already exist in the specified output folder, they will be overwritten without confirmation.
 
 ## 11. ΔDiff and max(diff_welch)
 

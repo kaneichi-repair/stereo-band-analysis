@@ -31,6 +31,8 @@ LANG = "ja"
 MSG = {
     "ja": {
         "stereo_error": "入力ファイルはステレオである必要があります。",
+        "sample_rate_mismatch": "正接続と逆接続のサンプリング周波数が一致しません。",
+        "no_welch_signal": "Welch解析の評価対象である -100 dB を超える有効信号域がありません。Band解析結果は微小信号領域を含む場合があります。",
         "analysis_start": "解析開始...",
         "analysis_band": "帯域別ゲイン差（補正後）解析中...",
         "analysis_complete": "解析完了！",
@@ -86,6 +88,8 @@ MSG = {
 
     "en": {
         "stereo_error": "Input file must be stereo.",
+        "sample_rate_mismatch": "Sample rates of the normal and reversed files do not match.",
+        "no_welch_signal": "No valid signal region above -100 dB was found for Welch analysis.",
         "analysis_start": "Analysis started...",
         "analysis_band": "Analyzing corrected band gain differences...",
         "analysis_complete": "Analysis completed!",
@@ -154,6 +158,7 @@ FREQ_MAX = 20000
 
 SAFE = 0.15
 WARN = 0.30
+UNIFORM_THRESHOLD = 0.02
 
 THRESHOLD_DB = -100
 ASYM_WARN_RATIO = 10
@@ -219,8 +224,16 @@ def analyze(file_normal, file_reverse, output_dir, yrange=None):
 
     print(T["analysis_start"])
 
-    L1, R1, sr = load_stereo(file_normal)
-    L2, R2, _ = load_stereo(file_reverse)
+    L1, R1, sr1 = load_stereo(file_normal)
+    L2, R2, sr2 = load_stereo(file_reverse)
+
+    if sr1 != sr2:
+        raise ValueError(
+            f'{T["sample_rate_mismatch"]} '
+            f'Normal={sr1} Hz, Reverse={sr2} Hz'
+        )
+
+    sr = sr1
 
     # === 非対称検出 ===
     energy_L = np.sum(L1**2)
@@ -375,6 +388,9 @@ def analyze(file_normal, file_reverse, output_dir, yrange=None):
     # 評価対象
     eval_mask = signal_mask[freq_mask]
 
+    if not np.any(eval_mask):
+        raise ValueError(T["no_welch_signal"])
+
     d1 = (
         10*np.log10(PxxL1[freq_mask] + 1e-12)
         - 10*np.log10(PxxR1[freq_mask] + 1e-12)
@@ -398,7 +414,7 @@ def analyze(file_normal, file_reverse, output_dir, yrange=None):
 
     uniform_diff = (
         len(diff_welch) > 1
-        and peak_span < 0.02
+        and peak_span < UNIFORM_THRESHOLD
     )
 
     fig, ax = plt.subplots(figsize=(10, 6))
